@@ -1,5 +1,6 @@
 <?php
 
+
 // Вычисление стоимости доставки посылок
 class CalcCostParcelDelivery {
 
@@ -8,6 +9,8 @@ class CalcCostParcelDelivery {
     // Описание:    Это формулы, по которым вычисляется стоимость перевозки
     // Принимает:   Количествео килограмм посылки
     // Возвращает:  Стоимость доставки этим перевозчиком
+
+    // Формулы используются в публичной процедуре Carrier
 
     // Формула для перевозчика 1
     private function formula_carrier1($input_kg) {
@@ -74,7 +77,7 @@ class CalcCostParcelDelivery {
 
 
     // Универсальная функция для рассчёта
-    // Принимает: Номер перевозчика, и количество кг, которые нужно перевезти
+    // Принимает: Номер перевозчика, и количество кг которые нужно перевезти
     // Возвращает: Стоимость перевозки, в рублях
     public function Carrier($num_of_carrier, $input_kg) {
         // Проверяю на корректный ввод входного количества килограмм посылки
@@ -108,6 +111,13 @@ class CalcCostParcelDelivery {
     /*
         // Примеры использования:
 
+        // Инициализируем класс, для использования методов
+        $CalcCostParcelDelivery = new CalcCostParcelDelivery();
+
+        // Перевозчик № 1, хотим перевезти 10 килограмм:
+        echo "\n".$CalcCostParcelDelivery->Carrier(1, 10); // Вернёт 1000
+
+        // Для использования других перевозчиков:
         echo "\n".$CalcCostParcelDelivery->Carrier(1, 20); // Вернёт 1000
         echo "\n".$CalcCostParcelDelivery->Carrier(2, 20); // Вернёт 2000
         echo "\n".$CalcCostParcelDelivery->Carrier(3, 20); // Вернёт 1668.77
@@ -148,7 +158,7 @@ $CalcCostParcelDelivery = new CalcCostParcelDelivery();
 // echo "\n".$CalcCostParcelDelivery->Carrier2(100); 
 // echo "\n".$CalcCostParcelDelivery->Carrier3(100); 
 
-echo "\n".$CalcCostParcelDelivery->Carrier(1, 20); 
+echo "\n".$CalcCostParcelDelivery->Carrier(1, 10); 
 echo "\n".$CalcCostParcelDelivery->Carrier(2, 20); 
 echo "\n".$CalcCostParcelDelivery->Carrier(3, 20); 
 
