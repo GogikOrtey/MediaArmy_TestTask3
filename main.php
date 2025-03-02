@@ -25,21 +25,23 @@ class CalcCostParcelDelivery {
         return $result_summ;
     }
 
+    
     // Формула для перевозчика 2
     private function formula_carrier2($input_kg) {
         $result_summ = 0;
-
-        // Текстовое описание: 
-        // За каждый 1 кг берет 100 руб
 
         // Округляем в большую сторону
         // Так, если мы введём 0.1кг, он рассчитает стоимость перевозки как за 1кг
         $input_kg = ceil($input_kg);
 
+        // Текстовое описание: 
+        // За каждый 1 кг берет 100 руб
+
         $result_summ = $input_kg * 100;
 
         return $result_summ;
     }
+
 
     // Формула для перевозчика 3
     private function formula_carrier3($input_kg) {
@@ -69,23 +71,33 @@ class CalcCostParcelDelivery {
 
 
 
-    // Функции-обёртки
 
-    // Функция, для рассчёта стоимости отправки посылок, перевозчиком №1
-    // Принимает: Количествео килограмм посылки
-    // Возвращает: Стоимость доставки этим перевозчиком
-    public function Carrier1($input_kg) {
-        // Проверяю на корректный ввод входного клоичества килограмм посылки
+
+    // Универсальная функция для рассчёта
+    // Принимает: Номер перевозчика, и количество кг, которые нужно перевезти
+    // Возвращает: Стоимость перевозки, в рублях
+    public function Carrier($num_of_carrier, $input_kg) {
+        // Проверяю на корректный ввод входного количества килограмм посылки
         $this->VereficInput($input_kg);
 
         // Если вход = 0, то сразу 0 и возвращаем
         if($input_kg == 0) return 0;
 
-        // Получаем значение стоимосты, вычисляемое по формуле
-        $result_summ = formula_carrier1($input_kg);
+        switch ($num_of_carrier) {
+            case 1:
+                $result_summ = $this->formula_carrier1($input_kg); break;
+            case 2:
+                $result_summ = $this->formula_carrier2($input_kg); break;
+            case 3:
+                $result_summ = $this->formula_carrier3($input_kg); break;
+            // ...
 
+            default:
+                exit("Неизвестный перевозчик: $num_of_carrier");
+        }
+        
         if($result_summ == 0) {
-            exit("Произошла ошибка при рассчёте стоимости! Формула вернула 0 рублей. Строка: " . __LINE__);
+            exit("Произошла ошибка при рассчёте стоимости! Формула №$num_of_carrier вернула 0 рублей. Строка: " . __LINE__);
         }
 
         // Возвращаем результат: 
@@ -93,36 +105,13 @@ class CalcCostParcelDelivery {
         return $result_summ;
     }
 
-    public function Carrier2($input_kg) {
-        $this->VereficInput($input_kg);
+    /*
+        // Примеры использования:
 
-        if($input_kg == 0) return 0;
-
-        $result_summ = formula_carrier2($input_kg);
-
-        if($result_summ == 0) {
-            exit("Произошла ошибка при рассчёте стоимости! Формула вернула 0 рублей. Строка: " . __LINE__);
-        }
-
-        return $result_summ;
-    }
-
-    public function Carrier3($input_kg) {
-        $this->VereficInput($input_kg);
-
-        // Если вход = 0, то сразу 0 и возвращаем
-        if($input_kg == 0) return 0;
-
-        $result_summ = formula_carrier3($input_kg);
-
-        if($result_summ == 0) {
-            exit("Произошла ошибка при рассчёте стоимости! Формула вернула 0 рублей. Строка: " . __LINE__);
-        }
-
-        return $result_summ;
-    }
-
-    // ...
+        echo "\n".$CalcCostParcelDelivery->Carrier(1, 20); // Вернёт 1000
+        echo "\n".$CalcCostParcelDelivery->Carrier(2, 20); // Вернёт 2000
+        echo "\n".$CalcCostParcelDelivery->Carrier(3, 20); // Вернёт 1668.77
+    */
 
 
     // Функция, которая проверяет, корректное ли мы подали на вход значение килограмм
@@ -139,10 +128,6 @@ class CalcCostParcelDelivery {
             "Входное значение не является числом: $" . "input_kg = " . $input_kg);
         }
     }
-
-    /*
-        // Примеры использования:
-    */
 }
 
 $CalcCostParcelDelivery = new CalcCostParcelDelivery();
@@ -159,9 +144,15 @@ $CalcCostParcelDelivery = new CalcCostParcelDelivery();
 // echo "\n".$CalcCostParcelDelivery->Carrier3(5); 
 
 
-echo "\n".$CalcCostParcelDelivery->Carrier1(100); 
-echo "\n".$CalcCostParcelDelivery->Carrier2(100); 
-echo "\n".$CalcCostParcelDelivery->Carrier3(100); 
+// echo "\n".$CalcCostParcelDelivery->Carrier1(100); 
+// echo "\n".$CalcCostParcelDelivery->Carrier2(100); 
+// echo "\n".$CalcCostParcelDelivery->Carrier3(100); 
+
+echo "\n".$CalcCostParcelDelivery->Carrier(1, 20); 
+echo "\n".$CalcCostParcelDelivery->Carrier(2, 20); 
+echo "\n".$CalcCostParcelDelivery->Carrier(3, 20); 
+
+
 
 
 
