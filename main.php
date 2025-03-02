@@ -7,14 +7,48 @@ class CalcCostParcelDelivery {
     // Принимает: Количествео килограмм посылки
     // Возвращает: Стоимость доставки этим перевозчиком
     public function Carrier1($input_kg) {
+        // Проверяю на корректный ввод входного клоичества килограмм посылки
+        $this->VereficInput($input_kg);
 
+        // Если вход = 0, то сразу 0 и возвращаем
+        if($input_kg == 0) return 0;
+
+        // Основная формула для рассчёта стоимости перевозки:
+        if($input_kg < 10) {
+            $result_summ = 100;
+        } else {
+            $result_summ = 1000;
+        }
+
+        // Возвращаем результат: 
+        // Количество рублей, за перевозку введённого количества кг
+        return $result_summ;
+    }
+
+    // Функция, для рассчёта стоимости отправки посылок, перевозчиком №2
+    // Принимает: Количествео килограмм посылки
+    // Возвращает: Стоимость доставки этим перевозчиком
+    public function Carrier2($input_kg) {
+        // Проверяю на корректный ввод входного клоичества килограмм посылки
+        $this->VereficInput($input_kg);
+
+        // Если вход = 0, то сразу 0 и возвращаем
+        if($input_kg == 0) return 0;
+
+        // Основная формула для рассчёта стоимости перевозки:
+        $result_summ = $input_kg * 100;
+
+        // Возвращаем результат: 
+        // Количество рублей, за перевозку введённого количества кг
+        return $result_summ;
     }
 
 
     // Функция, которая проверяет, корректное ли мы подали на вход значение килограмм
-    function VereficInput($input_kg) {
+    private function VereficInput($input_kg) {
         // Если входное значение является числом
         if(is_numeric($input_kg)) {
+            // Если количество кг < 0
             if($input_kg < 0) {
                 exit("Возникла ошибка при выполнении рассчёта стоимости доставки! " . 
                 "Входное значение количества килограмм меньше нуля: $" . "input_kg = " . $input_kg);
@@ -26,11 +60,24 @@ class CalcCostParcelDelivery {
     }
 }
 
-// Создаем экземпляр класса и передаем параметры в конструктор
 $CalcCostParcelDelivery = new CalcCostParcelDelivery();
 
 // Вызываем метод класса
-echo $CalcCostParcelDelivery->VereficInput("ааа"); 
+// echo $CalcCostParcelDelivery->VereficInput("ааа"); 
+echo $CalcCostParcelDelivery->Carrier1(9); 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
