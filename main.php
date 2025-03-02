@@ -156,9 +156,10 @@ class CalcCostParcelDelivery {
         if($input_kg > 19) {
             exit("К сожалению, алгоритм не рассчитан на такие мощности. "
             . "Пожалуйста, введите число кг < 19");
-        }
+        }        
 
         // Проходим все возможные комбинации количества килограмм для трех перевозчиков
+        // Шаг = 0.1кг
         for ($kg1 = 0; $kg1 <= $input_kg; $kg1 += 0.1) {
             for ($kg2 = 0; $kg2 <= $input_kg - $kg1; $kg2 += 0.1) {
                 $kg3 = $input_kg - $kg1 - $kg2;
@@ -193,18 +194,9 @@ class CalcCostParcelDelivery {
 
 $CalcCostParcelDelivery = new CalcCostParcelDelivery();
 
-// echo "\n".$CalcCostParcelDelivery->Carrier1(20); 
-// echo "\n".$CalcCostParcelDelivery->Carrier2(20); 
-// echo "\n".$CalcCostParcelDelivery->Carrier3(20); 
-
-// echo "\n".$CalcCostParcelDelivery->Carrier1(5); 
-// echo "\n".$CalcCostParcelDelivery->Carrier2(5); 
-// echo "\n".$CalcCostParcelDelivery->Carrier3(5); 
-
-
-// echo "\n".$CalcCostParcelDelivery->Carrier1(100); 
-// echo "\n".$CalcCostParcelDelivery->Carrier2(100); 
-// echo "\n".$CalcCostParcelDelivery->Carrier3(100); 
+// Отправляем 1м перевозчиком 10 кг:
+echo "\n".$CalcCostParcelDelivery->Carrier(1, 10);
+echo "\n";
 
 echo "\n".$CalcCostParcelDelivery->Carrier(1, 15); // Выведет 1000
 echo "\n".$CalcCostParcelDelivery->Carrier(2, 15); // Выведет 1500
